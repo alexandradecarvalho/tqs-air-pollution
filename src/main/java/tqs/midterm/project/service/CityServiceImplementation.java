@@ -1,4 +1,4 @@
-package tqs.midterm.project.model;
+package tqs.midterm.project.service;
 
 public class CityServiceImplementation {
 }

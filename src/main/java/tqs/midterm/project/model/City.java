@@ -1,12 +1,16 @@
 package tqs.midterm.project.model;
 
 public class City {
+    // coordinates
     private float latitude;
     private float longitude;
+    // name and country
     private String name;
     private String country;
+    // pollutants concentration
     private AirQuality quality;
 
+    // constructor
     public City(float latitude, float longitude, String name, String country, AirQuality quality){
         this.latitude=latitude;
         this.longitude=longitude;
@@ -14,6 +18,8 @@ public class City {
         this.country=country;
         this.quality=quality;
     }
+
+    // getters and setters
 
     public float getLatitude() {
         return latitude;
