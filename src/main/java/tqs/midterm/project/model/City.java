@@ -8,8 +8,8 @@ public class City {
     // auto generated id
     private static int id = 0;
     // coordinates
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
     // name and country
     private String name;
     private String country;
@@ -17,7 +17,7 @@ public class City {
     private AirQuality quality;
 
     // constructors
-    public City(float latitude, float longitude, String name, String country){
+    public City(double latitude, double longitude, String name, String country){
         this.latitude=latitude;
         this.longitude=longitude;
         this.name=name;
@@ -29,19 +29,19 @@ public class City {
 
     // getters and setters
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
