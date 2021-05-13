@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AirQuality</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/fcfb63c867.js" crossorigin="anonymous"></script>
+    <link th:rel="stylesheet" th:href="@{/main.css}">
+</head>
+<body>
+
+<div class="center-small">
+    <h2 class="left fit full"><i class="fas fa-map-marker-alt"></i>  Please, insert a city</h2>
+    <form action="#" th:action="@{/search}">
+        <label for="cityname" th:name="cityname">  City name:</label>
+        <input type="text" id="cityname" name="cityname"><br><br>
+        <input type="submit" value="Submit" class="submit-btn">
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,12 @@
 package tqs.midterm.project.model;
 
+import org.springframework.data.annotation.Persistent;
+
+import javax.persistence.*;
+
 public class City {
+    // auto generated id
+    private static int id = 0;
     // coordinates
     private float latitude;
     private float longitude;
@@ -10,14 +16,16 @@ public class City {
     // pollutants concentration
     private AirQuality quality;
 
-    // constructor
-    public City(float latitude, float longitude, String name, String country, AirQuality quality){
+    // constructors
+    public City(float latitude, float longitude, String name, String country){
         this.latitude=latitude;
         this.longitude=longitude;
         this.name=name;
         this.country=country;
-        this.quality=quality;
+        this.id++;
     }
+
+    public City() {this.id++;}
 
     // getters and setters
 
@@ -62,4 +70,12 @@ public class City {
     }
 
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Id
+    public int getId() {
+        return id;
+    }
 }

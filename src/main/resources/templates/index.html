@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AirQuality</title>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <script src="https://kit.fontawesome.com/fcfb63c867.js" crossorigin="anonymous"></script>
+  <link th:rel="stylesheet" th:href="@{/main.css}">
+</head>
+<body>
+
+<div class="center-small center-medium">
+  <h2 class="left fit full"><i class="fas fa-map-marker-alt"></i>  Please, insert coordinates</h2>
+  <form class="bottomless" action="#" th:action="@{/coords}">
+    <table>
+      <tr>
+        <td class="nowidth"><label for="latitude" th:name="latitude">  Latitude:</label></td>
+        <td class="nowidth"><input type="text" id="latitude" name="latitude"><br><br></td>
+      </tr>
+      <tr>
+        <td class="nowidth"><label for="longitude" th:name="longitude">  Longitude:</label></td>
+        <td class="nowidth"><input type="text" id="longitude" name="longitude"><br><br></td>
+      </tr>
+    </table>
+
+    <input type="submit" value="Submit" class="submit-btn">
+  </form>
+  <a href="names" class="redirect"><small>Want to search by city name instead?</small></a>
+</div>
+
+</body>
+</html>

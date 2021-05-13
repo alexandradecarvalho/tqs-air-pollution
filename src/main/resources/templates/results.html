@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AirQuality</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/fcfb63c867.js" crossorigin="anonymous"></script>
+    <link th:rel="stylesheet" th:href="@{/main.css}">
+</head>
+<body>
+
+<div class="center">
+    <span>
+        <h2 class="left fit;" th:text="${city.name} + ', ' + ${city.country}"/>
+        <i th:class="'right ' +  ${city.quality.o3 < 120 && city.quality.pm25 < 30 && city.quality.pm10 < 50 && city.quality.so2 < 120 && city.quality.no2 < 100  ? 'fas fa-seedling' : 'fas fa-smog'} "></i>
+    </span>
+    <p class="coordinates" th:text="'(' + ${city.latitude} + ', ' + ${city.longitude} + ')'"/>
+    <br/>
+    <h4>Pollution Parameters:</h4>
+    <table>
+        <tr>
+            <td class="name">carbon monoxide:</td>
+            <td class="value" th:text="${city.quality.co} + 'ppb'"/>
+        </tr>
+        <tr>
+            <td class="name">nitrogen dioxide:</td>
+            <td class="value" th:text="${city.quality.no2} + 'ppb'"/>
+        </tr>
+        <tr>
+            <td class="name">ozone:</td>
+            <td class="value" th:text="${city.quality.o3} + 'ppb'"/>
+        </tr>
+        <tr>
+            <td class="name">sulfur dioxide:</td>
+            <td class="value" th:text="${city.quality.so2} + 'ppb'"/>
+        </tr>
+        <tr>
+            <td class="name">fine particulate matter (<2.5µm): </td>
+            <td class="value" th:text="${city.quality.pm25} + 'ug/m3'"/>
+        </tr>
+        <tr>
+            <td class="name">inhalable particulate matter (<10µm): </td>
+            <td class="value" th:text="${city.quality.pm10} + 'ug/m3'"/>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

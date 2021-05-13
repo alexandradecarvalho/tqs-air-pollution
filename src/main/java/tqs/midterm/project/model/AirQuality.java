@@ -1,6 +1,10 @@
 package tqs.midterm.project.model;
 
+import javax.persistence.*;
+import java.util.List;
+
 public class AirQuality {
+    private static int qualityId = 0;
     // air quality parameters
     private double co;   // carbon monoxide
     private double no2;  // nitrogen dioxide
@@ -8,6 +12,7 @@ public class AirQuality {
     private double so2;  // sulfur dioxide
     private double pm25; // fine particulate matter (<2.5µm)
     private double pm10; // inhalable particulate matter (<10µm)
+    // cities
 
     // constructor
     public AirQuality(double co, double o3, double no2, double so2, double pm10, double pm25){
@@ -17,6 +22,11 @@ public class AirQuality {
         this.so2 = so2;
         this.pm10 = pm10;
         this.pm25 = pm25;
+        this.qualityId++;
+    }
+
+    public AirQuality() {
+        this.qualityId++;
     }
 
     // getters and setters
@@ -68,4 +78,21 @@ public class AirQuality {
     public void setPm10(double pm10) {
         this.pm10 = pm10;
     }
+
+    public void setId(int qualityId) {
+        this.qualityId = qualityId;
+    }
+
+    @Id
+    public int getId() {
+        return qualityId;
+    }
+
+    /*public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }*/
 }

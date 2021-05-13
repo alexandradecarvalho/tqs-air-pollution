@@ -1,0 +1,126 @@
+body{
+    background-image: url("/img/landscape-bg.jpg");
+    background-size: cover;
+    background-position: left center;
+    font-family: 'Montserrat';font-size: 18px;
+}
+
+.center{
+    color: white;
+    margin: 15vh auto;
+    padding: 20px;
+    border: 1px solid #befdb7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #befdb7;
+    height: 70vh;
+    width: 39vw;
+    background: linear-gradient(42deg, rgba(0,0,0,1) 0%, rgba(32,32,32,1) 35%, rgba(61,61,61,1) 100%);
+}
+
+.center-small{
+    display: block;
+    color: white;
+    margin: 15vh auto;
+    padding: 20px;
+    border: 1px solid #befdb7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #befdb7;
+    height: 27vh;
+    width: 39vw;
+    background: linear-gradient(42deg, rgba(0,0,0,1) 0%, rgba(32,32,32,1) 35%, rgba(61,61,61,1) 100%);
+}
+
+.center-medium{
+    height: 41vh!important;
+}
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+.fit{
+    width: fit-content;
+}
+
+.fa-smog, .fa-seedling{
+    font-size: 50px;
+    padding-right: 9%;
+    padding-top: 4%;
+}
+
+.coordinates{
+    font-size: 60%;
+    margin-right: 50%;
+    width: fit-content;
+}
+
+td{
+    padding: 2%;
+    width: 86%;
+}
+
+.value{
+    text-align: right;
+}
+
+.full{
+    width: 100%;
+}
+
+input:hover, textarea:hover,
+input:focus, textarea:focus {
+    border-color: #C9C9C9;
+}
+#cityname, #latitude, #longitude {
+    padding: 9px;
+    border: solid 1px #E5E5E5;
+    outline: 0;
+    width: 200px;
+    background: #FFFFFF;
+    height: 1vh;
+    border-radius: 5px;
+}
+
+.submit-btn{
+    background: transparent;
+    border-radius: 7px;
+    border-color: #FFFFFF;
+    border-width: 2px;
+    color: white;
+    padding: 1% 5%;
+}
+
+.submit-btn:hover{
+    cursor: pointer;
+}
+
+.bottomless{
+    margin-bottom: 4%;
+}
+
+.redirect{
+    color: white;
+    font-size: small;
+}
+
+.nowidth{
+    width: 0%;
+}
+
+.sad-body{
+    background-image: url("/img/sad.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.error{
+    font-size: 30vh;
+    color: #befdb7;
+    text-shadow: 4px 4px black;
+    text-align: center;
+}
