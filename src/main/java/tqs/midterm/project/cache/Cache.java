@@ -2,6 +2,7 @@ package tqs.midterm.project.cache;
 
 import tqs.midterm.project.model.City;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,14 +33,14 @@ public class Cache {
 
     public City get(double latitude, double longitude) {
         this.numberOfRequests++;
-        for(City c : map.keySet()){
+        for(City c : new ArrayList<City>(map.keySet())){
             if(System.currentTimeMillis() - map.get(c) > CACHE_TTL){
                 map.remove(c);
                 logger.log(Level.WARNING, "removed item " + c);
             } else{
                 if(c.getLatitude() == latitude && c.getLongitude() == longitude){
                     this.numberOfHits++;
-                    logger.log(Level.WARNING, "found item " + c);
+                    logger.log(Level.WARNING, "found item " + c.getName() + " of coordinates " + c.getLatitude() + "," + c.getLongitude());
                     return c;
                 }
                 logger.log(Level.WARNING,c.getLatitude() + "longitude" + c.getLongitude() + "instead of" + c.getLatitude() + c.getLongitude() );
@@ -72,5 +73,9 @@ public class Cache {
             return numberOfHits;
         }
         return numberOfHits/numberOfMisses;
+    }
+
+    public int size(){
+        return map.size();
     }
 }

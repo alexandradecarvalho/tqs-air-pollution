@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tqs.midterm.project.service.CityService;
 
+import java.util.logging.Logger;
+
 @Controller
 @RequestMapping("/")
 public class CityController {

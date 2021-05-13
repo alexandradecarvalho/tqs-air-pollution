@@ -10,16 +10,22 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import tqs.midterm.project.cache.Cache;
 import tqs.midterm.project.model.City;
+import tqs.midterm.project.repository.CityDAOImplementation;
 import tqs.midterm.project.service.CityService;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")
 public class RESTController {
     @Autowired
     private CityService cityService;
+    private static final Logger logger = Logger.getLogger(RESTController.class.getName());
 
-    @GetMapping("/search/{cityname}")
+    @GetMapping("/search")
     public String get(@RequestParam(value = "cityname", defaultValue = "Porto")String cityname) throws Exception {
+        logger.log(Level.WARNING, cityname + " recieved by rest controller");
         City answer = cityService.getCityByName(cityname);
         if(answer != null)
             return "{" + "city=" + answer.getName() + "," + answer.getCountry() + "&coordinates=(" + answer.getLatitude() + "," + answer.getLongitude() + ")" + "&pollutants=" + "{co=" + answer.getQuality().getCo() + ",no2=" + answer.getQuality().getNo2() + ",o3=" + answer.getQuality().getO3() + ",so2=" + answer.getQuality().getSo2() + ",pm10=" + answer.getQuality().getPm10() + ",pm25=" + answer.getQuality().getPm25() + "}}\n";

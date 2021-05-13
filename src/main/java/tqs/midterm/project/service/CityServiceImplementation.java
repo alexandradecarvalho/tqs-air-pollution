@@ -5,18 +5,23 @@ import org.springframework.stereotype.Service;
 import tqs.midterm.project.cache.Cache;
 import tqs.midterm.project.model.City;
 import tqs.midterm.project.repository.CityDAO;
+import tqs.midterm.project.repository.CityDAOImplementation;
 
 import javax.transaction.Transactional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class CityServiceImplementation implements CityService{
 
     @Autowired
     private CityDAO cityDAO;
+    private static final Logger logger = Logger.getLogger(CityServiceImplementation.class.getName());
 
     @Transactional
     @Override
     public City getCityByName(String name) throws Exception {
+        logger.log(Level.WARNING,name + " recieved in service");
         City result = cityDAO.findByName(name);
         return result;
     }
