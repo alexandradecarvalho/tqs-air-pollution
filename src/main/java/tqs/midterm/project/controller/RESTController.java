@@ -32,7 +32,7 @@ public class RESTController {
         return "null\n";
     }
 
-    @GetMapping("/hourly/{latitude}/{longitude}/{year}/{month}/{day}")
+    @GetMapping("/hourly")
     public String getCoords(@RequestParam(value = "latitude", defaultValue = "41.1496")double latitude, @RequestParam(value = "longitude", defaultValue = "-8.611")double longitude, @RequestParam(value = "year", defaultValue = "2021")int year, @RequestParam(value = "month", defaultValue = "01")int month, @RequestParam(value = "day", defaultValue = "14")int day) throws Exception {
         // avoid sending blatantly wrong values
         if(month > 12){
