@@ -1,0 +1,202 @@
+{
+  "id": "2edc68fe-dc42-4545-a5cc-a720ea07ebee",
+  "version": "2.0",
+  "name": "homework",
+  "url": "http://localhost:8080",
+  "tests": [{
+    "id": "4c9b30f9-ff46-4a8b-88bb-29e0edefb157",
+    "name": "searchByCoords",
+    "commands": [{
+      "id": "da7f0bb5-108e-4d98-9d32-199489bc45a9",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2d777996-f8f0-495c-8334-ee8cc5dc4aab",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1294x741",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "83f985a6-967d-4529-be5a-14fdc4318b83",
+      "comment": "",
+      "command": "type",
+      "target": "id=latitude",
+      "targets": [
+        ["id=latitude", "id"],
+        ["css=#latitude", "css:finder"],
+        ["xpath=//input[@id='latitude']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "40.763841"
+    }, {
+      "id": "49be918d-6cd5-4087-a3c7-051bdcf008ba",
+      "comment": "",
+      "command": "click",
+      "target": "id=latitude",
+      "targets": [
+        ["id=latitude", "id"],
+        ["css=#latitude", "css:finder"],
+        ["xpath=//input[@id='latitude']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f20225eb-075f-481f-b34d-9b40b4ee954b",
+      "comment": "",
+      "command": "click",
+      "target": "id=longitude",
+      "targets": [
+        ["id=longitude", "id"],
+        ["css=#longitude", "css:finder"],
+        ["xpath=//input[@id='longitude']", "xpath:attributes"],
+        ["xpath=//tr[2]/td[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "03fd665e-4635-4f4e-81c2-f31bee131461",
+      "comment": "",
+      "command": "type",
+      "target": "id=longitude",
+      "targets": [
+        ["id=longitude", "id"],
+        ["css=#longitude", "css:finder"],
+        ["xpath=//input[@id='longitude']", "xpath:attributes"],
+        ["xpath=//tr[2]/td[2]/input", "xpath:position"]
+      ],
+      "value": "-73.972972"
+    }, {
+      "id": "324ab495-4dbf-4fd0-b037-577ff023cc37",
+      "comment": "",
+      "command": "click",
+      "target": "css=.submit-btn",
+      "targets": [
+        ["css=.submit-btn", "css:finder"],
+        ["xpath=//input[@value='Submit']", "xpath:attributes"],
+        ["xpath=//form/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9ec0f5ef-4a8e-4600-af43-03ec994076dc",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//h2",
+      "targets": [
+        ["css=.left", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Manhattan, United States')]", "xpath:innerText"]
+      ],
+      "value": "Manhattan, United States"
+    }, {
+      "id": "33f52314-006a-42df-9596-67884ee8f49e",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.coordinates",
+      "targets": [
+        ["css=.coordinates", "css:finder"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'(40.763841, -73.972972)')]", "xpath:innerText"]
+      ],
+      "value": "(40.763841, -73.972972)"
+    }]
+  }, {
+    "id": "064abbda-4ad1-4126-aebb-1d92a0bf6049",
+    "name": "searchByName",
+    "commands": [{
+      "id": "46cae247-a449-4312-b73c-d98d848d43cd",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "478663d2-2e95-4b12-b1bc-7ab26c440568",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1294x741",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8d6a6cd3-56f2-4b96-aed7-9b47f877082e",
+      "comment": "",
+      "command": "click",
+      "target": "css=small",
+      "targets": [
+        ["css=small", "css:finder"],
+        ["xpath=//small", "xpath:position"],
+        ["xpath=//small[contains(.,'Want to search by city name instead?')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d0c1ac90-578b-4ff2-a9c0-5c052214fa1a",
+      "comment": "",
+      "command": "click",
+      "target": "id=cityname",
+      "targets": [
+        ["id=cityname", "id"],
+        ["css=#cityname", "css:finder"],
+        ["xpath=//input[@id='cityname']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b0222c08-d470-46cb-89ce-290f683cb4ba",
+      "comment": "",
+      "command": "type",
+      "target": "id=cityname",
+      "targets": [
+        ["id=cityname", "id"],
+        ["css=#cityname", "css:finder"],
+        ["xpath=//input[@id='cityname']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Porto"
+    }, {
+      "id": "7db8ab8c-badc-4c81-bc87-96fedd1932c1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.submit-btn",
+      "targets": [
+        ["css=.submit-btn", "css:finder"],
+        ["xpath=//input[@value='Submit']", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c73ac4dd-bd37-43ef-90ed-66d2e893c46a",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//h2",
+      "targets": [
+        ["css=.left", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Porto, Portugal')]", "xpath:innerText"]
+      ],
+      "value": "Porto, Portugal"
+    }, {
+      "id": "5a732deb-8aa7-43d3-ad6e-a7145b9323e6",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.coordinates",
+      "targets": [
+        ["css=.coordinates", "css:finder"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'(41.1496, -8.611)')]", "xpath:innerText"]
+      ],
+      "value": "(41.1496, -8.611)"
+    }]
+  }],
+  "suites": [{
+    "id": "b16fb2ef-f7b6-4e40-a95a-4cd71759e40a",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:8080/"],
+  "plugins": []
+}
