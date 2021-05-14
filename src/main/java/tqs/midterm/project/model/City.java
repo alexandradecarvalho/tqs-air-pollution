@@ -79,3 +79,12 @@ public class City {
         return id;
     }
 }
+
+// TODO : Controller tests
+// TODO : Use Selenium Web Tests
+// TODO : WebMVCTest???
+// TODO : Spring Boot Test??
+// TODO : Cucumber?
+// TODO : Document API
+// TODO : Video demo
+// TODO : Report
