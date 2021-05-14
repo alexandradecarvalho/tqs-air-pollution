@@ -186,7 +186,7 @@ public class CityDAOImplementation implements CityDAO {
         return null;
     }
 
-    public String getName(double longitude, double latitude) throws Exception {
+    public String getName(double latitude, double longitude) throws Exception {
         String base = "http://api.openweathermap.org/geo/1.0/reverse?lat=" + latitude + "&lon=" + longitude + "&limit=1&appid=a00b1675e92f09504fd9f127bd0a056e";
         URL my_final_url = new URL(base);
         HttpURLConnection con = (HttpURLConnection) my_final_url.openConnection(); // open HTTP connection
