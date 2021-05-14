@@ -42,10 +42,14 @@ public class CityDAOImplementation implements CityDAO {
 
             // parse response to JSON
             JSONArray jsonObj = new JSONArray(response.toString());
+            try{
+                Double latitude = jsonObj.getJSONObject(0).getDouble("lat");
+                Double longitude = jsonObj.getJSONObject(0).getDouble("lon");
+                return new Double[]{latitude, longitude};
+            } catch (Exception e){
 
-            Double latitude = jsonObj.getJSONObject(0).getDouble("lat");
-            Double longitude = jsonObj.getJSONObject(0).getDouble("lon");
-            return new Double[]{Double.valueOf(latitude), Double.valueOf(longitude)};
+            }
+
         } else
             logger.log(Level.WARNING, "unsuccessful attempt to connect to openweather to get coordinates from name");
 
@@ -69,13 +73,17 @@ public class CityDAOImplementation implements CityDAO {
 
             // parse response to JSON
             JSONObject jsonObj = new JSONObject(response.toString());
-            Double latitude = jsonObj.getJSONObject("data").getJSONArray("results").getJSONObject(0).getDouble("latitude");
-            Double longitude = jsonObj.getJSONObject("data").getJSONArray("results").getJSONObject(0).getDouble("longitude");
-            return new Double[]{Double.valueOf(latitude), Double.valueOf(longitude)};
+            try{
+                Double latitude = jsonObj.getJSONObject("data").getJSONArray("results").getJSONObject(0).getDouble("latitude");
+                Double longitude = jsonObj.getJSONObject("data").getJSONArray("results").getJSONObject(0).getDouble("longitude");
+                return new Double[]{latitude, longitude};
+            } catch (Exception e){
+
+            }
         } else
             logger.log(Level.WARNING, "unsuccessful attempt to connect to positionstack to get coordinates from name");
 
-        return new Double[]{Double.valueOf(0.0), Double.valueOf(0.0)};
+        return new Double[]{0.0, 0.0};
     }
 
     @Override
@@ -109,24 +117,28 @@ public class CityDAOImplementation implements CityDAO {
 
             // parse response to JSON
             JSONObject jsonObj = new JSONObject(response.toString());
-            JSONObject pollutants = jsonObj.getJSONObject("data").getJSONObject("pollutants");
+            try{
+                JSONObject pollutants = jsonObj.getJSONObject("data").getJSONObject("pollutants");
 
-            // get each pollutant concentration
-            double co = pollutants.getJSONObject("co").getJSONObject("concentration").getDouble("value");
-            double no2 = pollutants.getJSONObject("no2").getJSONObject("concentration").getDouble("value");
-            double o3 = pollutants.getJSONObject("o3").getJSONObject("concentration").getDouble("value");
-            double so2 = pollutants.getJSONObject("so2").getJSONObject("concentration").getDouble("value");
-            double pm25 = pollutants.getJSONObject("pm25").getJSONObject("concentration").getDouble("value");
-            double pm10 = pollutants.getJSONObject("pm10").getJSONObject("concentration").getDouble("value");
+                // get each pollutant concentration
+                double co = pollutants.getJSONObject("co").getJSONObject("concentration").getDouble("value");
+                double no2 = pollutants.getJSONObject("no2").getJSONObject("concentration").getDouble("value");
+                double o3 = pollutants.getJSONObject("o3").getJSONObject("concentration").getDouble("value");
+                double so2 = pollutants.getJSONObject("so2").getJSONObject("concentration").getDouble("value");
+                double pm25 = pollutants.getJSONObject("pm25").getJSONObject("concentration").getDouble("value");
+                double pm10 = pollutants.getJSONObject("pm10").getJSONObject("concentration").getDouble("value");
 
-            // get country from metadata
-            String country = jsonObj.getJSONObject("metadata").getJSONObject("location").getString("country");
+                // get country from metadata
+                String country = jsonObj.getJSONObject("metadata").getJSONObject("location").getString("country");
 
-            // new City
-            City newcity = new City(latitude, longitude, name, country);
-            newcity.setQuality(new AirQuality(co, 03, no2, so2, pm10, pm25));
-            cache.save(newcity, System.currentTimeMillis());
-            return newcity;
+                // new City
+                City newcity = new City(latitude, longitude, name, country);
+                newcity.setQuality(new AirQuality(co, o3, no2, so2, pm10, pm25));
+                cache.save(newcity, System.currentTimeMillis());
+                return newcity;
+            }catch (Exception e){
+
+            }
         } else
             logger.log(Level.WARNING, "unsuccessful attempt to connect to breezometer to search by name");
 
@@ -149,29 +161,33 @@ public class CityDAOImplementation implements CityDAO {
 
             // parse response to JSON
             JSONObject jsonObj = new JSONObject(response.toString());
-            JSONObject pollutants = jsonObj.getJSONArray("stations").getJSONObject(1);
+            try {
+                JSONObject pollutants = jsonObj.getJSONArray("stations").getJSONObject(1);
 
-            // get each pollutant concentration
-            double co = pollutants.getDouble("CO");
-            double no2 = pollutants.getDouble("NO2");
-            double o3 = pollutants.getDouble("OZONE");
-            double so2 = pollutants.getDouble("SO2");
-            double pm25 = pollutants.getJSONObject("aqiInfo").getDouble("concentrartion");
-            double pm10 = Double.valueOf(0.0);
+                // get each pollutant concentration
+                double co = pollutants.getDouble("CO");
+                double no2 = pollutants.getDouble("NO2");
+                double o3 = pollutants.getDouble("OZONE");
+                double so2 = pollutants.getDouble("SO2");
+                double pm25 = pollutants.getJSONObject("aqiInfo").getDouble("concentrartion");
+                double pm10 = 0.0;
 
-            // new City
-            City newcity = new City(latitude, longitude, name, "Undefined");
-            newcity.setQuality(new AirQuality(co, 03, no2, so2, pm10, pm25));
-            cache.save(newcity, System.currentTimeMillis());
-            return newcity;
-        } else
+                // new City
+                City newcity = new City(latitude, longitude, name, "Undefined");
+                newcity.setQuality(new AirQuality(co, o3, no2, so2, pm10, pm25));
+                cache.save(newcity, System.currentTimeMillis());
+                return newcity;
+            } catch (Exception e){
+
+            }
+                    } else
             logger.log(Level.WARNING, "unsuccessful attempt to connect to ambee to search by name");
 
         return null;
     }
 
     public String getName(double longitude, double latitude) throws Exception {
-        String base = "http://api.openweathermap.org/geo/1.0/reverse?lat=" + latitude + "&lon=" + longitude + "&limit=1&appid=ed8382a331f5f8f2f5573254e1031f89";
+        String base = "http://api.openweathermap.org/geo/1.0/reverse?lat=" + latitude + "&lon=" + longitude + "&limit=1&appid=a00b1675e92f09504fd9f127bd0a056e";
         URL my_final_url = new URL(base);
         HttpURLConnection con = (HttpURLConnection) my_final_url.openConnection(); // open HTTP connection
 
@@ -257,25 +273,29 @@ public class CityDAOImplementation implements CityDAO {
 
             // parse response to JSON
             JSONObject jsonObj = new JSONObject(response.toString());
-            JSONObject pollutants = jsonObj.getJSONObject("data").getJSONObject("pollutants");
+            try{
+                JSONObject pollutants = jsonObj.getJSONObject("data").getJSONObject("pollutants");
 
-            // get each pollutant concentration
-            double co = pollutants.getJSONObject("co").getJSONObject("concentration").getDouble("value");
-            double no2 = pollutants.getJSONObject("no2").getJSONObject("concentration").getDouble("value");
-            double o3 = pollutants.getJSONObject("o3").getJSONObject("concentration").getDouble("value");
-            double so2 = pollutants.getJSONObject("so2").getJSONObject("concentration").getDouble("value");
-            double pm25 = pollutants.getJSONObject("pm25").getJSONObject("concentration").getDouble("value");
-            double pm10 = pollutants.getJSONObject("pm10").getJSONObject("concentration").getDouble("value");
+                // get each pollutant concentration
+                double co = pollutants.getJSONObject("co").getJSONObject("concentration").getDouble("value");
+                double no2 = pollutants.getJSONObject("no2").getJSONObject("concentration").getDouble("value");
+                double o3 = pollutants.getJSONObject("o3").getJSONObject("concentration").getDouble("value");
+                double so2 = pollutants.getJSONObject("so2").getJSONObject("concentration").getDouble("value");
+                double pm25 = pollutants.getJSONObject("pm25").getJSONObject("concentration").getDouble("value");
+                double pm10 = pollutants.getJSONObject("pm10").getJSONObject("concentration").getDouble("value");
 
-            // get country from metadata
-            String country = jsonObj.getJSONObject("metadata").getJSONObject("location").getString("country");
+                // get country from metadata
+                String country = jsonObj.getJSONObject("metadata").getJSONObject("location").getString("country");
 
-            // new City
-            String name = getName(latitude, longitude);
-            City newcity = new City(latitude, longitude, name, country);
-            newcity.setQuality(new AirQuality(co, 03, no2, so2, pm10, pm25));
-            cache.save(newcity, System.currentTimeMillis());
-            return newcity;
+                // new City
+                String name = getName(latitude, longitude);
+                City newcity = new City(latitude, longitude, name, country);
+                newcity.setQuality(new AirQuality(co, o3, no2, so2, pm10, pm25));
+                cache.save(newcity, System.currentTimeMillis());
+                return newcity;
+            } catch (Exception e){
+            logger.log(Level.WARNING, "invalid result from positionstack to search by name");
+        }
         } else
             logger.log(Level.WARNING, "unsuccessful attempt to connect to breezometer to search by coords");
 
@@ -298,22 +318,26 @@ public class CityDAOImplementation implements CityDAO {
 
             // parse response to JSON
             JSONObject jsonObj = new JSONObject(response.toString());
-            JSONObject pollutants = jsonObj.getJSONArray("stations").getJSONObject(1);
+            try{
+                JSONObject pollutants = jsonObj.getJSONArray("stations").getJSONObject(1);
 
-            // get each pollutant concentration
-            double co = pollutants.getDouble("CO");
-            double no2 = pollutants.getDouble("NO2");
-            double o3 = pollutants.getDouble("OZONE");
-            double so2 = pollutants.getDouble("SO2");
-            double pm25 = pollutants.getJSONObject("aqiInfo").getDouble("concentration");
-            double pm10 = Double.valueOf(0.0);
+                // get each pollutant concentration
+                double co = pollutants.getDouble("CO");
+                double no2 = pollutants.getDouble("NO2");
+                double o3 = pollutants.getDouble("OZONE");
+                double so2 = pollutants.getDouble("SO2");
+                double pm25 = pollutants.getJSONObject("aqiInfo").getDouble("concentration");
+                double pm10 = 0.0;
 
-            // new City
-            String name = getName(latitude, longitude);
-            City newcity = new City(latitude, longitude, name, "Undefined");
-            newcity.setQuality(new AirQuality(co, 03, no2, so2, pm10, pm25));
-            cache.save(newcity, System.currentTimeMillis());
-            return newcity;
+                // new City
+                String name = getName(latitude, longitude);
+                City newcity = new City(latitude, longitude, name, "Undefined");
+                newcity.setQuality(new AirQuality(co, o3, no2, so2, pm10, pm25));
+                cache.save(newcity, System.currentTimeMillis());
+                return newcity;
+            } catch (Exception e){
+
+            }
         } else
             logger.log(Level.WARNING, "unsuccessful attempt to connect to ambee to search by coordinates");
 
@@ -322,7 +346,7 @@ public class CityDAOImplementation implements CityDAO {
 
     @Override
     public City findByCoordinatesAndDate(double latitude, double longitude, int year, int month, int day) throws Exception {
-        String request = "https://api.breezometer.com/air-quality/v2/historical/hourly?lat=" + latitude + "&lon=" + longitude + "&key=" + KEY + "&features=pollutants_concentrations&metadata=true&datetime=" + year + "-" + month + "-" + day + "T09:00:00"; // create complete request url
+        String request = "https://api.breezometer.com/air-quality/v2/historical/hourly?key="+ KEY + "&lat=" + latitude + "&lon=" + longitude + "&features=pollutants_concentrations&metadata=true&datetime=" + year + "-" + month + "-" + day + "T09:00:00"; // create complete request url
         URL my_final_url = new URL(request);
         HttpURLConnection con = (HttpURLConnection) my_final_url.openConnection(); // open HTTP connection
 
@@ -341,30 +365,34 @@ public class CityDAOImplementation implements CityDAO {
 
             // parse response to JSON
             JSONObject jsonObj = new JSONObject(response.toString());
-            JSONObject pollutants = jsonObj.getJSONObject("data").getJSONObject("pollutants");
+            try{
+                JSONObject pollutants = jsonObj.getJSONObject("data").getJSONObject("pollutants");
 
-            // get each pollutant concentration
-            double co = pollutants.getJSONObject("co").getJSONObject("concentration").getDouble("value");
-            double no2 = pollutants.getJSONObject("no2").getJSONObject("concentration").getDouble("value");
-            double o3 = pollutants.getJSONObject("o3").getJSONObject("concentration").getDouble("value");
-            double so2 = pollutants.getJSONObject("so2").getJSONObject("concentration").getDouble("value");
-            double pm25 = pollutants.getJSONObject("pm25").getJSONObject("concentration").getDouble("value");
-            double pm10 = pollutants.getJSONObject("pm10").getJSONObject("concentration").getDouble("value");
+                // get each pollutant concentration
+                double co = pollutants.getJSONObject("co").getJSONObject("concentration").getDouble("value");
+                double no2 = pollutants.getJSONObject("no2").getJSONObject("concentration").getDouble("value");
+                double o3 = pollutants.getJSONObject("o3").getJSONObject("concentration").getDouble("value");
+                double so2 = pollutants.getJSONObject("so2").getJSONObject("concentration").getDouble("value");
+                double pm25 = pollutants.getJSONObject("pm25").getJSONObject("concentration").getDouble("value");
+                double pm10 = pollutants.getJSONObject("pm10").getJSONObject("concentration").getDouble("value");
 
-            // get country from metadata
-            String country = jsonObj.getJSONObject("metadata").getJSONObject("location").getString("country");
+                // get country from metadata
+                String country = jsonObj.getJSONObject("metadata").getJSONObject("location").getString("country");
 
-            // new City
-            String name = getName(latitude, longitude);
-            City newcity = new City(latitude, longitude, name, country);
-            newcity.setQuality(new AirQuality(co, 03, no2, so2, pm10, pm25));
-            cache.save(newcity, System.currentTimeMillis());
-            return newcity;
+                // new City
+                String name = getName(latitude, longitude);
+                City newcity = new City(latitude, longitude, name, country);
+                newcity.setQuality(new AirQuality(co, o3, no2, so2, pm10, pm25));
+                cache.save(newcity, System.currentTimeMillis());
+                return newcity;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else
             logger.log(Level.WARNING, "unsuccessful attempt to connect to breezometer to search by history");
 
 
-        request = "https://api.ambeedata.com/history/by-lat-lng?lat=" + latitude + "&lng=" + longitude + "&from=" + year + "-" + month + "-" + day + " 09:00:00&to=" + year + "-" + month + "-" + day + " 21:00:00"; // create complete request url
+        request = "https://api.ambeedata.com/history/by-lat-lng?lat=" + latitude + "&lng=" + longitude + " " + year + "-" + month + "-" + day + " 09:00:00&to=" + year + "-" + month + "-" + day + " 21:00:00"; // create complete request url
         my_final_url = new URL(request);
         con = (HttpURLConnection) my_final_url.openConnection(); // open HTTP connection
 
@@ -383,22 +411,26 @@ public class CityDAOImplementation implements CityDAO {
 
             // parse response to JSON
             JSONObject jsonObj = new JSONObject(response.toString());
-            JSONObject pollutants = jsonObj.getJSONArray("stations").getJSONObject(1);
+            try{
+                JSONObject pollutants = jsonObj.getJSONArray("stations").getJSONObject(1);
 
-            // get each pollutant concentration
-            double co = pollutants.getDouble("CO");
-            double no2 = pollutants.getDouble("NO2");
-            double o3 = pollutants.getDouble("OZONE");
-            double so2 = pollutants.getDouble("SO2");
-            double pm25 = pollutants.getJSONObject("aqiInfo").getDouble("concentrartion");
-            double pm10 = Double.valueOf(0.0);
+                // get each pollutant concentration
+                double co = pollutants.getDouble("CO");
+                double no2 = pollutants.getDouble("NO2");
+                double o3 = pollutants.getDouble("OZONE");
+                double so2 = pollutants.getDouble("SO2");
+                double pm25 = pollutants.getJSONObject("aqiInfo").getDouble("concentrartion");
+                double pm10 = 0.0;
 
-            // new City
-            String name = getName(latitude, longitude);
-            City newcity = new City(latitude, longitude, name, "Undefined");
-            newcity.setQuality(new AirQuality(co, 03, no2, so2, pm10, pm25));
-            cache.save(newcity, System.currentTimeMillis());
-            return newcity;
+                // new City
+                String name = getName(latitude, longitude);
+                City newcity = new City(latitude, longitude, name, "Undefined");
+                newcity.setQuality(new AirQuality(co, o3, no2, so2, pm10, pm25));
+                cache.save(newcity, System.currentTimeMillis());
+                return newcity;
+            } catch (Exception e){
+
+            }
         } else
             logger.log(Level.WARNING, "unsuccessful attempt to connect to ambee to search by history");
 

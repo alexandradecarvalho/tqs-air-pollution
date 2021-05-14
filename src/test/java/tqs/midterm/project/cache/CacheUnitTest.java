@@ -1,12 +1,10 @@
 package tqs.midterm.project.cache;
 
-import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tqs.midterm.project.model.AirQuality;
 import tqs.midterm.project.model.City;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CacheUnitTest {
