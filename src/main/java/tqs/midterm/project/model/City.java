@@ -1,7 +1,5 @@
 package tqs.midterm.project.model;
 
-import org.springframework.data.annotation.Persistent;
-
 import javax.persistence.*;
 
 public class City {
