@@ -383,10 +383,9 @@ public class CityDAOImplementation implements CityDAO {
                 String name = getName(latitude, longitude);
                 City newcity = new City(latitude, longitude, name, country);
                 newcity.setQuality(new AirQuality(co, o3, no2, so2, pm10, pm25));
-                cache.save(newcity, System.currentTimeMillis());
                 return newcity;
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.log(Level.WARNING, e.toString());
             }
         } else
             logger.log(Level.WARNING, "unsuccessful attempt to connect to breezometer to search by history");
@@ -426,7 +425,6 @@ public class CityDAOImplementation implements CityDAO {
                 String name = getName(latitude, longitude);
                 City newcity = new City(latitude, longitude, name, "Undefined");
                 newcity.setQuality(new AirQuality(co, o3, no2, so2, pm10, pm25));
-                cache.save(newcity, System.currentTimeMillis());
                 return newcity;
             } catch (Exception e){
 

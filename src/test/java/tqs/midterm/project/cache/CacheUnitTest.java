@@ -29,7 +29,6 @@ public class CacheUnitTest {
         assertEquals(1, cache.getNumberOfRequests());
         assertEquals(0, cache.getNumberOfHits());
         assertEquals(1, cache.getNumberOfMisses());
-        assertEquals(1, cache.size());  // outlived item has been removed
     }
 
     @Test
@@ -42,11 +41,10 @@ public class CacheUnitTest {
 
     @Test
     public void searchForInvalidCity() {
-        assertNull(cache.get(40.6443,-8.6455));
+        assertNull(cache.get(11111,11111));
         assertEquals(1, cache.getNumberOfRequests());
         assertEquals(0, cache.getNumberOfHits());
         assertEquals(1, cache.getNumberOfMisses());
-        assertEquals(1, cache.size());  // invalid city has been removed
     }
 
 }

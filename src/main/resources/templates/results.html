@@ -11,7 +11,7 @@
 
 <div class="center">
     <span>
-        <h2 class="left fit;" th:text="${city.name} + ', ' + ${city.country}"/>
+        <h2 id="results_indicator" class="left fit;" th:text="${city.name} + ', ' + ${city.country}"/>
         <i th:class="'right ' +  ${city.quality.o3 < 120 && city.quality.pm25 < 30 && city.quality.pm10 < 50 && city.quality.so2 < 120 && city.quality.no2 < 100  ? 'fas fa-seedling' : 'fas fa-smog'} "></i>
     </span>
     <p class="coordinates" th:text="'(' + ${city.latitude} + ', ' + ${city.longitude} + ')'"/>

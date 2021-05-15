@@ -169,9 +169,11 @@
       "id": "c73ac4dd-bd37-43ef-90ed-66d2e893c46a",
       "comment": "",
       "command": "assertText",
-      "target": "xpath=//h2",
+      "target": "id=results_indicator",
       "targets": [
-        ["css=.left", "css:finder"],
+        ["id=results_indicator", "id"],
+        ["css=#results_indicator", "css:finder"],
+        ["xpath=//h2[@id='results_indicator']", "xpath:attributes"],
         ["xpath=//h2", "xpath:position"],
         ["xpath=//h2[contains(.,'Porto, Portugal')]", "xpath:innerText"]
       ],

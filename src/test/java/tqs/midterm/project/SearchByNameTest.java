@@ -12,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class SearchByNameTest {
   private WebDriver driver;
@@ -25,14 +26,12 @@ public class SearchByNameTest {
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
-
   @AfterEach
   public void tearDown() {
     driver.quit();
   }
-
   @Test
-  public void searchByName() {
+  public void searchByName() throws InterruptedException {
     driver.get("http://localhost:8080/");
     driver.manage().window().setSize(new Dimension(1294, 741));
     driver.findElement(By.cssSelector("small")).click();
@@ -40,6 +39,5 @@ public class SearchByNameTest {
     driver.findElement(By.id("cityname")).sendKeys("Porto");
     driver.findElement(By.cssSelector(".submit-btn")).click();
     assertThat(driver.findElement(By.xpath("//h2")).getText(), is("Porto, Portugal"));
-    assertThat(driver.findElement(By.cssSelector(".coordinates")).getText(), is("(41.1496, -8.611)"));
   }
 }
